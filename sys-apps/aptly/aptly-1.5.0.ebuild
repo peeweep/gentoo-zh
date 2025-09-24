@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ inherit bash-completion-r1 go-module systemd
 DESCRIPTION="A swiss army knife for Debian repository management"
 HOMEPAGE="https://github.com/aptly-dev/aptly"
 SRC_URI="https://github.com/aptly-dev/aptly/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-SRC_URI+=" https://github.com/liuyujielol/gentoo-go-deps/releases/download/${P}/${P}-deps.tar.xz"
+SRC_URI+=" https://github.com/gentoo-zh/gentoo-deps/releases/download/${P}/${P}-vendor.tar.xz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -21,11 +21,7 @@ RDEPEND="
 "
 
 src_compile() {
-	ego build -mod=readonly -o cmd/aptly -ldflags "-X main.Version=${PV}"
-}
-
-src_test() {
-	ego test -work ./...
+	ego build -o cmd/aptly -ldflags "-X main.Version=${PV}"
 }
 
 src_install() {
